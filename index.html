@@ -80,9 +80,9 @@
     .logo-tipo__nombre {
       font-family: var(--serif);
       font-style: italic;
-      font-weight: 400;
+      font-weight: 600;
       color: var(--oro);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.06em;
       font-size: 1.4rem;
     }
     .logo-tipo__sub {
@@ -273,7 +273,7 @@
       text-align: center;
     }
     .hero__logo .logo-tipo__nombre {
-      font-size: clamp(3rem, 9vw, 6rem);
+      font-size: clamp(3.6rem, 10.8vw, 7.2rem);
       letter-spacing: 0.04em;
     }
     .hero__logo .logo-tipo__sub {
@@ -296,7 +296,15 @@
       color: var(--texto-oscuro);
       line-height: 1.2;
       letter-spacing: 0.01em;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.9rem;
+    }
+    .hero__servicios {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: clamp(0.62rem, 1.3vw, 0.74rem);
+      letter-spacing: 0.16em;
+      color: rgba(245, 240, 232, 0.4);
+      margin-bottom: 1.5rem;
     }
     .hero__subtitulo {
       font-family: var(--sans);
@@ -1281,6 +1289,9 @@
   ============================================================ -->
   <section class="hero" id="inicio" aria-label="Bienvenida a Amélie Bar &amp; Bistró">
 
+    <!-- REEMPLAZAR: foto real del local aquí -->
+    <!-- <img class="hero__foto-fondo" src="RUTA-DE-LA-FOTO" alt="Interior de Amélie Bar &amp; Bistró" aria-hidden="true" /> -->
+
     <!-- Elementos decorativos de fondo -->
     <div class="hero__puntos"  aria-hidden="true"></div>
     <div class="hero__anillo"  aria-hidden="true"></div>
@@ -1293,6 +1304,7 @@
       </div>
       <div class="hero__separador" aria-hidden="true"></div>
       <p class="hero__tagline">"Donde cada plato cuenta una historia."</p>
+      <p class="hero__servicios">Desayuno · Brunch · Almuerzo · Merienda · Cena · Todos los días</p>
       <p class="hero__subtitulo">Bar &amp; Bistró &nbsp;·&nbsp; Punta Carretas, Montevideo</p>
       <a
         href="https://wa.me/59895741158"
