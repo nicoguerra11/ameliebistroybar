@@ -768,6 +768,69 @@
       border-top: 1px solid rgba(201, 168, 76, 0.1);
     }
 
+    /* Promos de cafetería */
+    .cafe-promos {
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+    }
+    .cafe-promos__titulo {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--oro);
+      opacity: 0.7;
+      margin-bottom: 0.65rem;
+      letter-spacing: 0.06em;
+    }
+    .cafe-promo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.4rem;
+      background: rgba(201, 168, 76, 0.06);
+      border-left: 2px solid var(--oro);
+      border-radius: 0 2px 2px 0;
+    }
+    .cafe-promo__info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .cafe-promo__badge {
+      font-family: var(--sans);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--negro);
+      background: var(--oro);
+      padding: 0.18rem 0.42rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .cafe-promo__nombre {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--texto-oscuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cafe-promo__precio {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--oro);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     /* ================================================
        EXPERIENCIAS — sección clara
     ================================================ */
@@ -1175,7 +1238,6 @@
     <nav class="header__nav" aria-label="Navegación principal">
       <a href="#nosotros">Nosotros</a>
       <a href="#menu">Menú</a>
-      <a href="#experiencias">Experiencias</a>
       <a href="#horarios">Horarios</a>
       <a href="#reservas">Reservas</a>
     </nav>
@@ -1203,7 +1265,7 @@
   <nav class="nav-movil" id="navMovil" aria-hidden="true">
     <a href="#nosotros">Nosotros</a>
     <a href="#menu">Menú</a>
-    <a href="#experiencias">Experiencias</a>
+    <a href="#horarios">Horarios</a>
     <a href="#reservas">Reservas</a>
     <a
       href="https://wa.me/59895741158"
@@ -1689,6 +1751,39 @@
             <div class="menu-plato__info"><p class="menu-plato__nombre">Bocados dulces</p></div>
             <span class="menu-plato__precio">$80</span>
           </div>
+
+          <!-- Promos cafetería -->
+          <div class="cafe-promos">
+            <p class="cafe-promos__titulo">Combos</p>
+            <div class="cafe-promo">
+              <div class="cafe-promo__info">
+                <span class="cafe-promo__badge">PROMO</span>
+                <p class="cafe-promo__nombre">Café + 2 delicias dulces</p>
+              </div>
+              <span class="cafe-promo__precio">$160</span>
+            </div>
+            <div class="cafe-promo">
+              <div class="cafe-promo__info">
+                <span class="cafe-promo__badge">PROMO</span>
+                <p class="cafe-promo__nombre">Café + 2 croissant</p>
+              </div>
+              <span class="cafe-promo__precio">$200</span>
+            </div>
+            <div class="cafe-promo">
+              <div class="cafe-promo__info">
+                <span class="cafe-promo__badge">PROMO</span>
+                <p class="cafe-promo__nombre">Café + torta del día</p>
+              </div>
+              <span class="cafe-promo__precio">$320</span>
+            </div>
+            <div class="cafe-promo">
+              <div class="cafe-promo__info">
+                <span class="cafe-promo__badge">PROMO</span>
+                <p class="cafe-promo__nombre">Café + sándwich tostado</p>
+              </div>
+              <span class="cafe-promo__precio">$350</span>
+            </div>
+          </div>
         </div>
 
         <!-- MENÚ DEL DÍA -->
@@ -1745,61 +1840,6 @@
   <!-- ============================================================
        EXPERIENCIAS — sección clara, 2 tarjetas premium
   ============================================================ -->
-  <section class="experiencias seccion" id="experiencias" aria-labelledby="exp-titulo">
-    <div class="contenedor experiencias__inner">
-
-      <div class="experiencias__cabecera">
-        <span class="experiencias__etiqueta revelar">Nuestras propuestas</span>
-        <h2 class="experiencias__titulo revelar revelar-d1" id="exp-titulo">Viví Amélie</h2>
-      </div>
-
-      <div class="experiencias__grid">
-
-        <!-- Tarjeta 1: Almuerzo / Cena Gourmet -->
-        <article class="exp-card revelar">
-          <span class="exp-card__icono">
-            <!-- Ícono: campana de servicio / gourmet -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14c0-4.97 4.03-9 9-9s9 4.03 9 9"/><line x1="2" y1="14" x2="22" y2="14"/><line x1="12" y1="5" x2="12" y2="3"/><line x1="12" y1="14" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
-          </span>
-          <h3 class="exp-card__titulo">Almuerzo o Cena Gourmet para 2</h3>
-          <p class="exp-card__desc">
-            Entrada · Principal · Postre · 2 bebidas sin alcohol o 1 botella de vino · Café o té.
-            Los platos se eligen de la carta.
-          </p>
-          <span class="exp-card__detalle">Todos los días · 20:00 a 23:30 hs</span>
-          <a
-            href="https://wa.me/59895741158"
-            target="_blank" rel="noopener noreferrer"
-            class="exp-card__cta"
-          >
-            Reservar
-          </a>
-        </article>
-
-        <!-- Tarjeta 2: Té Completo -->
-        <article class="exp-card revelar revelar-d2">
-          <span class="exp-card__icono">
-            <!-- Ícono: taza de té -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h2a3 3 0 010 6h-2"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="1" y1="22" x2="23" y2="22"/></svg>
-          </span>
-          <h3 class="exp-card__titulo">Té Completo para 2</h3>
-          <p class="exp-card__desc">
-            Una tarde de pausa con sabor francés. Selección de tés, scones, sándwiches y dulces.
-          </p>
-          <span class="exp-card__detalle">Lunes a Domingo · 16:00 a 19:00 hs</span>
-          <a
-            href="https://wa.me/59895741158"
-            target="_blank" rel="noopener noreferrer"
-            class="exp-card__cta"
-          >
-            Reservar
-          </a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ============================================================
        GALERÍA — sección oscura, masonry CSS columns
        Reemplazar con fotos reales de @ameliebarybistro
