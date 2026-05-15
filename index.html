@@ -11,7 +11,7 @@
     /* ================================================
        FUENTES — Google Fonts
     ================================================ */
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap');
 
     /* ================================================
        VARIABLES GLOBALES
@@ -23,7 +23,7 @@
       --texto-oscuro:  #f5f0e8;
       --texto-claro:   #1a1a1a;
       --tarjeta-dark:  #1a1a1a;
-      --serif:         'Cormorant Garamond', Georgia, serif;
+      --serif:         'Playfair Display', Georgia, serif;
       --sans:          'Jost', system-ui, sans-serif;
       --ease:          cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --trans:         all 0.4s var(--ease);
@@ -349,6 +349,19 @@
       background: rgba(201, 168, 76, 0.05);
     }
     .hero__bbva svg { color: var(--oro); flex-shrink: 0; }
+    .hero__bernaches {
+      margin-top: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .hero__bernaches svg { color: var(--oro); flex-shrink: 0; }
 
     /* ================================================
        HORARIOS — sección visual antes del footer
@@ -940,6 +953,13 @@
     ================================================ */
     .galeria { background: var(--negro); }
     .galeria__cabecera { text-align: center; margin-bottom: 3rem; }
+    .galeria__ig-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.3s ease;
+    }
+    .galeria__ig-link:hover { opacity: 0.8; }
     .galeria__etiqueta {
       display: block;
       font-size: 0.7rem;
@@ -977,13 +997,31 @@
     }
     .galeria__item:hover img { transform: scale(1.04); filter: brightness(1.1); }
 
-    /* Alturas variadas para efecto masonry */
+    /* Alturas para 3 fotos */
     .galeria__item:nth-child(1) { height: 280px; }
-    .galeria__item:nth-child(2) { height: 218px; }
-    .galeria__item:nth-child(3) { height: 252px; }
-    .galeria__item:nth-child(4) { height: 222px; }
-    .galeria__item:nth-child(5) { height: 285px; }
-    .galeria__item:nth-child(6) { height: 240px; }
+    .galeria__item:nth-child(2) { height: 340px; }
+    .galeria__item:nth-child(3) { height: 280px; }
+
+    /* Ver más link */
+    .galeria__ver-mas {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .galeria__ver-mas-link {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--oro);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+      padding-bottom: 0.2rem;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .galeria__ver-mas-link:hover {
+      color: var(--crema);
+      border-color: rgba(245, 240, 232, 0.4);
+    }
 
     /* ================================================
        RESERVAS / CTA — fondo dorado
@@ -1316,6 +1354,10 @@
       <p class="hero__bbva">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         20% de descuento con tarjetas BBVA
+      </p>
+      <p class="hero__bernaches">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Premio Bernaches · Hospitalidad Uruguaya
       </p>
     </div>
 
@@ -1860,8 +1902,15 @@
     <div class="contenedor galeria__inner">
 
       <div class="galeria__cabecera">
-        <span class="galeria__etiqueta revelar">Instagram · @ameliebarybistro</span>
-        <h2 class="galeria__titulo revelar revelar-d1" id="galeria-titulo">Momentos en Amélie</h2>
+        <a
+          href="https://www.instagram.com/ameliebarybistro/"
+          target="_blank" rel="noopener noreferrer"
+          class="galeria__ig-link"
+          aria-label="Ver Instagram de Amélie Bar &amp; Bistró"
+        >
+          <span class="galeria__etiqueta revelar">Instagram · @ameliebarybistro</span>
+          <h2 class="galeria__titulo revelar revelar-d1" id="galeria-titulo">Momentos en Amélie</h2>
+        </a>
       </div>
 
       <!-- Reemplazar src de cada imagen con fotos reales de @ameliebarybistro -->
@@ -1875,15 +1924,16 @@
         <div class="galeria__item revelar revelar-d2">
           <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Interior Amélie" loading="lazy" />
         </div>
-        <div class="galeria__item revelar revelar-d3">
-          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Café Amélie" loading="lazy" />
-        </div>
-        <div class="galeria__item revelar revelar-d4">
-          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Platos Amélie" loading="lazy" />
-        </div>
-        <div class="galeria__item revelar revelar-d5">
-          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" alt="Experiencia Amélie" loading="lazy" />
-        </div>
+      </div>
+
+      <div class="galeria__ver-mas revelar">
+        <a
+          href="https://www.instagram.com/ameliebarybistro/"
+          target="_blank" rel="noopener noreferrer"
+          class="galeria__ver-mas-link"
+        >
+          Ver más en @ameliebarybistro →
+        </a>
       </div>
 
     </div>
@@ -2032,17 +2082,15 @@
         <h3 class="footer__col-titulo">Horarios</h3>
         <p class="footer__horarios">
           <span class="footer__hr-franja">Desayuno</span>
-          <span>Lun–Vie 7:00 – 10:00</span>
-          <span>Sáb–Dom 7:00 – 11:00</span>
+          <span>L a V 7:00–10:00 / S y D 7:00–11:00</span>
           <span class="footer__hr-franja">Brunch</span>
-          <span>Todos los días 10:00 – 14:00</span>
+          <span>Todos los días 10:00–14:00</span>
           <span class="footer__hr-franja">Almuerzo</span>
-          <span>Lun–Vie 12:00 – 15:30</span>
-          <span>Sáb–Dom 12:30 – 16:00</span>
+          <span>L a V 12:00–15:30 / S y D 12:30–16:00</span>
           <span class="footer__hr-franja">Merienda</span>
-          <span>Todos los días 16:00 – 19:30</span>
+          <span>Todos los días 16:00–19:30</span>
           <span class="footer__hr-franja">Cena</span>
-          <span>Todos los días 19:00 – 23:30</span>
+          <span>Todos los días 19:00–23:30</span>
         </p>
       </div>
 
