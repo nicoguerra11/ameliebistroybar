@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amélie Bar &amp; Bistró · Punta Carretas, Montevideo</title>
-  <meta name="description" content="Amélie Bar &amp; Bistró — Un rincón de Montevideo con alma parisina. Cocina de bistró en Punta Carretas. Abierto todos los días de 12:00 a 23:00 hs. Premio Bernaches." />
+  <meta name="description" content="Amélie Bar &amp; Bistró — Un rincón de Montevideo con alma parisina. Cocina de bistró en Punta Carretas. Abierto todos los días desde las 7:00 hs. Premio Bernaches." />
   <meta name="theme-color" content="#0d0d0d" />
 
   <style>
@@ -325,6 +325,113 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(201, 168, 76, 0.22);
     }
+    .hero__bbva {
+      margin-top: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(245, 240, 232, 0.55);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      padding: 0.38rem 0.85rem;
+      border-radius: 2px;
+      background: rgba(201, 168, 76, 0.05);
+    }
+    .hero__bbva svg { color: var(--oro); flex-shrink: 0; }
+
+    /* ================================================
+       HORARIOS — sección visual antes del footer
+    ================================================ */
+    .horarios {
+      background: var(--negro);
+      padding: 6rem 2rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+    .horarios__inner {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .horarios__encabezado {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .horarios__etiqueta {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 0.9rem;
+    }
+    .horarios__titulo {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--crema);
+      line-height: 1.15;
+    }
+    .horarios__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .horarios__bloque {
+      background: var(--tarjeta-dark);
+      border-top: 2px solid var(--oro);
+      border-radius: 2px;
+      padding: 1.6rem 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .horarios__icono {
+      color: var(--oro);
+      margin-bottom: 0.25rem;
+    }
+    .horarios__nombre {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--crema);
+      letter-spacing: 0.01em;
+    }
+    .horarios__rango {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: var(--oro);
+      letter-spacing: 0.04em;
+    }
+    .horarios__dias {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: rgba(245, 240, 232, 0.45);
+      line-height: 1.6;
+      margin-top: 0.1rem;
+    }
+
+    /* Footer horarios */
+    .footer__horarios {
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+      font-size: 0.82rem;
+      color: rgba(245, 240, 232, 0.6);
+      line-height: 1.5;
+    }
+    .footer__hr-franja {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--oro);
+      font-size: 0.92rem;
+      margin-top: 0.5rem;
+    }
+    .footer__hr-franja:first-child { margin-top: 0; }
 
     /* Indicador de scroll animado */
     .scroll-indicador {
@@ -1030,8 +1137,16 @@
       .footer__grid { grid-template-columns: 1fr; gap: 2.25rem; }
       .footer__barra { flex-direction: column; text-align: center; gap: 0.3rem; }
 
+      /* Horarios: 2 columnas en mobile */
+      .horarios__grid { grid-template-columns: repeat(2, 1fr); }
+      .horarios { padding: 4rem 1.25rem; }
+
       /* WhatsApp flotante visible en móvil */
       .wa-flotante { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .horarios__grid { grid-template-columns: 1fr; }
     }
 
     /* Móvil pequeño */
@@ -1061,6 +1176,7 @@
       <a href="#nosotros">Nosotros</a>
       <a href="#menu">Menú</a>
       <a href="#experiencias">Experiencias</a>
+      <a href="#horarios">Horarios</a>
       <a href="#reservas">Reservas</a>
     </nav>
 
@@ -1123,6 +1239,10 @@
       >
         Reservar por WhatsApp
       </a>
+      <p class="hero__bbva">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        20% de descuento con tarjetas BBVA
+      </p>
     </div>
 
     <!-- Flecha indicadora de scroll -->
@@ -1159,7 +1279,7 @@
           Premio Bernaches — el reconocimiento a la hospitalidad uruguaya.
         </div>
         <p class="nosotros__horario revelar revelar-d4">
-          Abierto todos los días &nbsp;·&nbsp; 12:00 a 23:00 hs
+          Abierto todos los días &nbsp;·&nbsp; Desde las 7:00 hs &nbsp;·&nbsp; Hasta las 23:30 hs
         </p>
       </div>
 
@@ -1584,7 +1704,7 @@
           <div class="menu-plato">
             <div class="menu-plato__info">
               <p class="menu-plato__nombre">Sugerencia del Chef</p>
-              <p class="menu-plato__desc">Entrada, plato principal, panera, agua o refresco &middot; Sábado a Domingo de 12:00 a 15:30 hs</p>
+              <p class="menu-plato__desc">Entrada, plato principal, panera, agua o refresco &middot; Sábado a Domingo de 12:30 a 16:00 hs</p>
             </div>
             <span class="menu-plato__precio">$690</span>
           </div>
@@ -1745,6 +1865,73 @@
   </section>
 
   <!-- ============================================================
+       HORARIOS — sección visual antes del footer
+  ============================================================ -->
+  <section class="horarios" id="horarios" aria-label="Horarios de atención">
+    <div class="horarios__inner">
+
+      <header class="horarios__encabezado revelar">
+        <span class="horarios__etiqueta">Horarios</span>
+        <h2 class="horarios__titulo">Abiertos todos los días<br>desde las 7:00 hs</h2>
+      </header>
+
+      <div class="horarios__grid">
+
+        <!-- Desayuno -->
+        <div class="horarios__bloque revelar revelar-d1">
+          <div class="horarios__icono">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <p class="horarios__nombre">Desayuno</p>
+          <p class="horarios__rango">7:00 – 10:00</p>
+          <p class="horarios__dias">Lun a Vie<br>Sáb y Dom hasta las 11:00</p>
+        </div>
+
+        <!-- Brunch -->
+        <div class="horarios__bloque revelar revelar-d2">
+          <div class="horarios__icono">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <p class="horarios__nombre">Brunch</p>
+          <p class="horarios__rango">10:00 – 14:00</p>
+          <p class="horarios__dias">Todos los días</p>
+        </div>
+
+        <!-- Almuerzo -->
+        <div class="horarios__bloque revelar revelar-d3">
+          <div class="horarios__icono">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          </div>
+          <p class="horarios__nombre">Almuerzo</p>
+          <p class="horarios__rango">12:00 – 15:30</p>
+          <p class="horarios__dias">Lun a Vie<br>Sáb y Dom 12:30 – 16:00</p>
+        </div>
+
+        <!-- Merienda -->
+        <div class="horarios__bloque revelar revelar-d4">
+          <div class="horarios__icono">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 010 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="7" y1="1" x2="7" y2="4"/><line x1="11" y1="1" x2="11" y2="4"/></svg>
+          </div>
+          <p class="horarios__nombre">Merienda</p>
+          <p class="horarios__rango">16:00 – 19:30</p>
+          <p class="horarios__dias">Todos los días</p>
+        </div>
+
+        <!-- Cena -->
+        <div class="horarios__bloque revelar revelar-d5">
+          <div class="horarios__icono">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <p class="horarios__nombre">Cena</p>
+          <p class="horarios__rango">19:00 – 23:30</p>
+          <p class="horarios__dias">Todos los días</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FOOTER — oscuro, 3 columnas
   ============================================================ -->
   <footer class="footer" aria-label="Pie de página">
@@ -1791,12 +1978,19 @@
       <!-- Col 3: Horarios -->
       <div class="footer__col">
         <h3 class="footer__col-titulo">Horarios</h3>
-        <p>
-          Todos los días<br>
-          12:00 – 23:00 hs<br>
-          <br>
-          Té de la tarde<br>
-          16:00 – 19:00 hs
+        <p class="footer__horarios">
+          <span class="footer__hr-franja">Desayuno</span>
+          <span>Lun–Vie 7:00 – 10:00</span>
+          <span>Sáb–Dom 7:00 – 11:00</span>
+          <span class="footer__hr-franja">Brunch</span>
+          <span>Todos los días 10:00 – 14:00</span>
+          <span class="footer__hr-franja">Almuerzo</span>
+          <span>Lun–Vie 12:00 – 15:30</span>
+          <span>Sáb–Dom 12:30 – 16:00</span>
+          <span class="footer__hr-franja">Merienda</span>
+          <span>Todos los días 16:00 – 19:30</span>
+          <span class="footer__hr-franja">Cena</span>
+          <span>Todos los días 19:00 – 23:30</span>
         </p>
       </div>
 
