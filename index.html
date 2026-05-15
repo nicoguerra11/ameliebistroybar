@@ -1,0 +1,1904 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amélie Bar &amp; Bistró · Punta Carretas, Montevideo</title>
+  <meta name="description" content="Amélie Bar &amp; Bistró — Un rincón de Montevideo con alma parisina. Cocina de bistró en Punta Carretas. Abierto todos los días de 12:00 a 23:00 hs. Premio Bernaches." />
+  <meta name="theme-color" content="#0d0d0d" />
+
+  <style>
+    /* ================================================
+       FUENTES — Google Fonts
+    ================================================ */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+    /* ================================================
+       VARIABLES GLOBALES
+    ================================================ */
+    :root {
+      --negro:         #0d0d0d;
+      --crema:         #f5f0e8;
+      --oro:           #c9a84c;
+      --texto-oscuro:  #f5f0e8;
+      --texto-claro:   #1a1a1a;
+      --tarjeta-dark:  #1a1a1a;
+      --serif:         'Cormorant Garamond', Georgia, serif;
+      --sans:          'Jost', system-ui, sans-serif;
+      --ease:          cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --trans:         all 0.4s var(--ease);
+    }
+
+    /* ================================================
+       RESET Y BASE
+    ================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      background: var(--negro);
+      color: var(--texto-oscuro);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--sans); }
+
+    /* Accesibilidad: foco visible */
+    *:focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
+
+    /* ================================================
+       HEADER — sticky, transparente → sólido al scroll
+    ================================================ */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.35rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--trans);
+    }
+    .header.scrolled {
+      background: rgba(13, 13, 13, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.875rem 2.5rem;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    /* Logo tipográfico — usado en header, hero y footer */
+    .logo-tipo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      user-select: none;
+    }
+    .logo-tipo__nombre {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--oro);
+      letter-spacing: 0.02em;
+      font-size: 1.4rem;
+    }
+    .logo-tipo__sub {
+      font-family: var(--sans);
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.72);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.52rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Nav centrada (desktop) */
+    .header__nav {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .header__nav a {
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      color: var(--texto-oscuro);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .header__nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--oro);
+      transition: width 0.3s ease;
+    }
+    .header__nav a:hover { color: var(--oro); }
+    .header__nav a:hover::after { width: 100%; }
+
+    /* CTA derecha */
+    .header__derecha { display: flex; align-items: center; gap: 1rem; }
+    .btn-header {
+      display: inline-block;
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--negro);
+      background: var(--oro);
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+      transition: var(--trans);
+    }
+    .btn-header:hover { background: var(--crema); }
+
+    /* Botón hamburguesa */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding: 4px;
+      z-index: 102;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 1.5px;
+      background: var(--texto-oscuro);
+      transition: var(--trans);
+    }
+    .hamburger.abierto span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.abierto span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.abierto span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* ================================================
+       NAV MÓVIL — overlay pantalla completa
+    ================================================ */
+    .nav-movil {
+      position: fixed;
+      inset: 0;
+      z-index: 101;
+      background: var(--negro);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .nav-movil.activo { opacity: 1; pointer-events: all; }
+    .nav-movil a {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--texto-oscuro);
+      transition: color 0.3s ease;
+    }
+    .nav-movil a:hover { color: var(--oro); }
+    .nav-movil .btn-movil {
+      margin-top: 0.75rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--negro);
+      background: var(--oro);
+      padding: 0.9rem 2.5rem;
+      border-radius: 2px;
+    }
+
+    /* ================================================
+       HERO — altura completa, fondo negro atmosférico
+    ================================================ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      min-height: 100vh;
+      background: var(--negro);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 7rem 2rem 5rem;
+    }
+
+    /* Gradientes de ambiente / vignette */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 14% 55%, rgba(201, 168, 76, 0.07) 0%, transparent 52%),
+        radial-gradient(ellipse at 84% 18%, rgba(201, 168, 76, 0.05) 0%, transparent 48%),
+        radial-gradient(ellipse at 50% 105%, rgba(0, 0, 0, 0.75) 0%, transparent 58%);
+      pointer-events: none;
+    }
+
+    /* Grilla de puntos decorativa muy sutil */
+    .hero__puntos {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(201, 168, 76, 0.09) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Anillos dorados decorativos */
+    .hero__anillo {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 68vmin; height: 68vmin;
+      border: 1px solid rgba(201, 168, 76, 0.07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__anillo::before {
+      content: '';
+      position: absolute; inset: 32px;
+      border: 1px solid rgba(201, 168, 76, 0.04);
+      border-radius: 50%;
+    }
+    .hero__anillo::after {
+      content: '';
+      position: absolute; inset: -32px;
+      border: 1px solid rgba(201, 168, 76, 0.03);
+      border-radius: 50%;
+    }
+
+    /* Contenido centrado */
+    .hero__contenido {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 680px;
+    }
+    .hero__logo {
+      width: clamp(160px, 30vw, 280px);
+      margin: 0 auto 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .hero__logo .logo-tipo__nombre {
+      font-size: clamp(3rem, 9vw, 6rem);
+      letter-spacing: 0.04em;
+    }
+    .hero__logo .logo-tipo__sub {
+      font-size: clamp(0.6rem, 1.6vw, 0.82rem);
+      letter-spacing: 0.38em;
+      margin-top: 0.6rem;
+      color: rgba(245, 240, 232, 0.6);
+    }
+    .hero__separador {
+      width: 52px; height: 1px;
+      background: var(--oro);
+      margin: 0 auto 1.75rem;
+      opacity: 0.5;
+    }
+    .hero__tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 4.5vw, 3.2rem);
+      color: var(--texto-oscuro);
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .hero__subtitulo {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: clamp(0.72rem, 1.5vw, 0.88rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.52);
+      margin-bottom: 2.75rem;
+    }
+    .hero__cta {
+      display: inline-block;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.83rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--negro);
+      background: var(--oro);
+      padding: 0.95rem 2.5rem;
+      border-radius: 2px;
+      transition: var(--trans);
+    }
+    .hero__cta:hover {
+      background: var(--crema);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.22);
+    }
+
+    /* Indicador de scroll animado */
+    .scroll-indicador {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.35;
+      animation: rebotar 2.4s ease-in-out infinite;
+    }
+    .scroll-indicador span {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    @keyframes rebotar {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%        { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ================================================
+       UTILIDADES COMPARTIDAS
+    ================================================ */
+    .seccion { padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1.5rem, 5vw, 5rem); }
+    .contenedor { max-width: 1200px; margin: 0 auto; }
+
+    /* Reveal con Intersection Observer */
+    .revelar {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .revelar.visible { opacity: 1; transform: translateY(0); }
+    .revelar-d1 { transition-delay: 0.10s; }
+    .revelar-d2 { transition-delay: 0.20s; }
+    .revelar-d3 { transition-delay: 0.30s; }
+    .revelar-d4 { transition-delay: 0.40s; }
+    .revelar-d5 { transition-delay: 0.50s; }
+
+    /* ================================================
+       NOSOTROS — sección clara
+    ================================================ */
+    .nosotros {
+      background: var(--crema);
+      color: var(--texto-claro);
+    }
+    .nosotros__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .nosotros__etiqueta {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .nosotros__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      color: var(--texto-claro);
+      margin-bottom: 1.5rem;
+    }
+    .nosotros__texto {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.88;
+      color: rgba(26, 26, 26, 0.82);
+      margin-bottom: 1.5rem;
+    }
+    .nosotros__premio {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--texto-claro);
+      background: rgba(201, 168, 76, 0.12);
+      border-left: 2.5px solid var(--oro);
+      padding: 0.55rem 1.1rem;
+      margin-bottom: 1.75rem;
+    }
+    .nosotros__horario {
+      font-size: 0.73rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+    }
+
+    /* Imagen del local */
+    .nosotros__foto {
+      border-radius: 4px;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    .nosotros__foto img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.55s ease;
+    }
+    .nosotros__foto:hover img { transform: scale(1.03); }
+
+    /* ================================================
+       MENÚ — sección oscura
+    ================================================ */
+    .menu-sec { background: var(--negro); color: var(--texto-oscuro); }
+    .menu-sec__intro { text-align: center; margin-bottom: 3.5rem; }
+    .menu-sec__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      color: var(--oro);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .menu-sec__sep {
+      width: 40px; height: 1px;
+      background: var(--oro);
+      margin: 0 auto;
+      opacity: 0.4;
+    }
+
+    /* Grid de 5 tarjetas */
+    .menu-sec__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Las 2 últimas tarjetas (4a y 5a) centradas en desktop */
+    .menu-tarjeta {
+      background: var(--tarjeta-dark);
+      border-top: 3px solid var(--oro);
+      padding: 2rem 1.75rem;
+      border-radius: 2px;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .menu-tarjeta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+    .menu-tarjeta__icono {
+      display: block;
+      margin-bottom: 1.1rem;
+      color: var(--oro);
+    }
+    .menu-tarjeta__nombre {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+      color: var(--texto-oscuro);
+    }
+    .menu-tarjeta__desc {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.55);
+    }
+
+    /* ================================================
+       MENÚ REAL — carta completa de platos
+    ================================================ */
+    .menu-columnas {
+      column-count: 2;
+      column-gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .menu-cat {
+      break-inside: avoid;
+      margin-bottom: 1.75rem;
+      background: var(--tarjeta-dark);
+      border-top: 2px solid var(--oro);
+      padding: 1.5rem 1.5rem 1.25rem;
+      border-radius: 2px;
+    }
+    .menu-cat__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: var(--oro);
+      margin-bottom: 1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+    .menu-plato {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.05);
+    }
+    .menu-plato:last-of-type { border-bottom: none; }
+    .menu-plato__info { flex: 1; min-width: 0; }
+    .menu-plato__nombre {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.875rem;
+      color: var(--texto-oscuro);
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+    .menu-plato--destacado .menu-plato__nombre::before {
+      content: '';
+      display: block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--oro);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .menu-plato__desc {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.38);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+    .menu-plato__precio {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--oro);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .menu-cat__nota {
+      font-size: 0.72rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245, 240, 232, 0.32);
+      margin-top: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(245, 240, 232, 0.06);
+      line-height: 1.55;
+    }
+    /* Sección especial: Té y Brunch para Dos */
+    .menu-especial {
+      border: 1px solid rgba(201, 168, 76, 0.28);
+      border-top: 3px solid var(--oro);
+      padding: 2rem;
+      border-radius: 4px;
+      background: rgba(201, 168, 76, 0.03);
+      margin-bottom: 2rem;
+    }
+    .menu-especial__eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .menu-especial__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: var(--texto-oscuro);
+      margin-bottom: 0.35rem;
+      line-height: 1.2;
+    }
+    .menu-especial__horario {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.38);
+      margin-bottom: 1.5rem;
+    }
+    .menu-especial__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .menu-especial-item {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 2px;
+      padding: 1.25rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.22);
+    }
+    .menu-especial-item__nombre {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--texto-oscuro);
+      margin-bottom: 0.3rem;
+    }
+    .menu-especial-item__cuando {
+      display: block;
+      font-size: 0.68rem;
+      color: rgba(245, 240, 232, 0.38);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .menu-especial-item__desc {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.5);
+      line-height: 1.68;
+      margin-bottom: 1rem;
+    }
+    .menu-especial-item__precio {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.6rem;
+      color: var(--oro);
+    }
+    .menu-nota-precios {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.22);
+      letter-spacing: 0.08em;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    /* ================================================
+       EXPERIENCIAS — sección clara
+    ================================================ */
+    .experiencias { background: var(--crema); color: var(--texto-claro); }
+    .experiencias__cabecera { text-align: center; margin-bottom: 3.5rem; }
+    .experiencias__etiqueta {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .experiencias__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      color: var(--texto-claro);
+      line-height: 1.15;
+    }
+
+    /* 2 tarjetas premium side by side */
+    .experiencias__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+    .exp-card {
+      background: #ffffff;
+      border-top: 3px solid var(--oro);
+      padding: 2.5rem;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .exp-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 52px rgba(0, 0, 0, 0.15);
+    }
+    .exp-card__icono { display: block; margin-bottom: 1.25rem; color: var(--oro); }
+    .exp-card__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      color: var(--texto-claro);
+      margin-bottom: 1rem;
+    }
+    .exp-card__desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.78;
+      color: rgba(26, 26, 26, 0.72);
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .exp-card__detalle {
+      font-size: 0.73rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .exp-card__detalle::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--oro);
+      flex-shrink: 0;
+    }
+    .exp-card__cta {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--negro);
+      background: var(--oro);
+      padding: 0.75rem 1.75rem;
+      border-radius: 2px;
+      transition: var(--trans);
+      align-self: flex-start;
+    }
+    .exp-card__cta:hover {
+      background: var(--negro);
+      color: var(--crema);
+      transform: translateY(-1px);
+    }
+
+    /* ================================================
+       GALERÍA — sección oscura con grid masonry CSS
+    ================================================ */
+    .galeria { background: var(--negro); }
+    .galeria__cabecera { text-align: center; margin-bottom: 3rem; }
+    .galeria__etiqueta {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .galeria__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      color: var(--texto-oscuro);
+      line-height: 1.15;
+    }
+
+    /* Masonry via CSS columns */
+    .galeria__grid {
+      column-count: 3;
+      column-gap: 1rem;
+    }
+    .galeria__item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #1a1a1a;
+      cursor: default;
+    }
+    .galeria__item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.45s ease, filter 0.35s ease;
+    }
+    .galeria__item:hover img { transform: scale(1.04); filter: brightness(1.1); }
+
+    /* Alturas variadas para efecto masonry */
+    .galeria__item:nth-child(1) { height: 280px; }
+    .galeria__item:nth-child(2) { height: 218px; }
+    .galeria__item:nth-child(3) { height: 252px; }
+    .galeria__item:nth-child(4) { height: 222px; }
+    .galeria__item:nth-child(5) { height: 285px; }
+    .galeria__item:nth-child(6) { height: 240px; }
+
+    /* ================================================
+       RESERVAS / CTA — fondo dorado
+    ================================================ */
+    .reservas {
+      background: var(--oro);
+      color: var(--negro);
+      text-align: center;
+      padding: clamp(4.5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 5rem);
+    }
+    .reservas__titulo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--negro);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .reservas__subtexto {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: rgba(13, 13, 13, 0.7);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+    .reservas__botones {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .btn-oscuro {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--crema);
+      background: var(--negro);
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      transition: var(--trans);
+    }
+    .btn-oscuro:hover {
+      background: rgba(13, 13, 13, 0.78);
+      transform: translateY(-2px);
+    }
+    .btn-borde {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--negro);
+      background: transparent;
+      border: 1.5px solid var(--negro);
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      transition: var(--trans);
+    }
+    .btn-borde:hover {
+      background: var(--negro);
+      color: var(--crema);
+      transform: translateY(-2px);
+    }
+    .reservas__direccion {
+      font-size: 0.88rem;
+      color: rgba(13, 13, 13, 0.58);
+      letter-spacing: 0.04em;
+    }
+
+    /* ================================================
+       FOOTER — oscuro, 3 columnas
+    ================================================ */
+    .footer {
+      background: var(--negro);
+      color: var(--texto-oscuro);
+      padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem) 0;
+    }
+    .footer__grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .footer__logo { margin-bottom: 1.1rem; }
+    .footer__logo .logo-tipo__nombre { font-size: 1.65rem; }
+    .footer__logo .logo-tipo__sub { font-size: 0.54rem; }
+    .footer__tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(245, 240, 232, 0.52);
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+    .footer__ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--oro);
+      transition: opacity 0.3s ease;
+    }
+    .footer__ig:hover { opacity: 0.65; }
+    .footer__ig svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .footer__col-titulo {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .footer__col address,
+    .footer__col p {
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.88;
+      color: rgba(245, 240, 232, 0.52);
+      font-style: normal;
+    }
+    .footer__col a {
+      color: rgba(245, 240, 232, 0.52);
+      transition: color 0.3s ease;
+    }
+    .footer__col a:hover { color: var(--oro); }
+    .footer__divisor {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 1px;
+      background: rgba(201, 168, 76, 0.18);
+    }
+    .footer__barra {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer__copyright {
+      font-size: 0.75rem;
+      color: rgba(245, 240, 232, 0.28);
+      font-weight: 300;
+    }
+    .footer__credito {
+      font-size: 0.7rem;
+      color: rgba(245, 240, 232, 0.3);
+      font-weight: 300;
+      opacity: 0.55;
+    }
+
+    /* ================================================
+       BOTÓN FLOTANTE WHATSAPP — solo móvil
+    ================================================ */
+    .wa-flotante {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      z-index: 997;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
+      opacity: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: aparecer 0.5s ease 2s forwards;
+    }
+    .wa-flotante svg { width: 28px; height: 28px; fill: #ffffff; }
+    .wa-flotante:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 26px rgba(37, 211, 102, 0.58);
+    }
+    @keyframes aparecer { to { opacity: 1; } }
+
+    /* ================================================
+       RESPONSIVE
+    ================================================ */
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .menu-sec__grid { grid-template-columns: repeat(2, 1fr); }
+      .galeria__grid   { column-count: 2; }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      /* Header: ocultar nav y CTA desktop, mostrar hamburger */
+      .header__nav             { display: none; }
+      .header__derecha .btn-header { display: none; }
+      .hamburger               { display: flex; }
+      .header { padding: 1.1rem 1.5rem; }
+      .header.scrolled { padding: 0.8rem 1.5rem; }
+
+      /* Nosotros: una columna */
+      .nosotros__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Menú: una columna */
+      .menu-sec__grid      { grid-template-columns: 1fr; }
+      .menu-columnas       { column-count: 1; }
+      .menu-especial       { padding: 1.5rem; }
+      .menu-especial__grid { grid-template-columns: 1fr; }
+
+      /* Experiencias: una columna */
+      .experiencias__grid { grid-template-columns: 1fr; }
+
+      /* Galería: una columna */
+      .galeria__grid { column-count: 1; }
+
+      /* Footer: una columna */
+      .footer__grid { grid-template-columns: 1fr; gap: 2.25rem; }
+      .footer__barra { flex-direction: column; text-align: center; gap: 0.3rem; }
+
+      /* WhatsApp flotante visible en móvil */
+      .wa-flotante { display: flex; }
+    }
+
+    /* Móvil pequeño */
+    @media (max-width: 480px) {
+      .reservas__botones { flex-direction: column; align-items: center; }
+      .hero { padding: 6rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER — sticky con transición al scroll
+  ============================================================ -->
+  <header class="header" id="header">
+
+    <!-- Logo izquierda — variante oscura (blanca) -->
+    <a href="#inicio" class="header__logo" aria-label="Amélie Bar &amp; Bistró — Inicio">
+      <span class="logo-tipo">
+        <span class="logo-tipo__nombre">Amélie</span>
+        <span class="logo-tipo__sub">Bar &amp; Bistró</span>
+      </span>
+    </a>
+
+    <!-- Navegación centrada (desktop) -->
+    <nav class="header__nav" aria-label="Navegación principal">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#experiencias">Experiencias</a>
+      <a href="#reservas">Reservas</a>
+    </nav>
+
+    <!-- CTA + hamburger (derecha) -->
+    <div class="header__derecha">
+      <a
+        href="https://wa.me/59895741158"
+        target="_blank" rel="noopener noreferrer"
+        class="btn-header"
+      >
+        Reservar
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       NAV MÓVIL — overlay pantalla completa
+  ============================================================ -->
+  <nav class="nav-movil" id="navMovil" aria-hidden="true">
+    <a href="#nosotros">Nosotros</a>
+    <a href="#menu">Menú</a>
+    <a href="#experiencias">Experiencias</a>
+    <a href="#reservas">Reservas</a>
+    <a
+      href="https://wa.me/59895741158"
+      target="_blank" rel="noopener noreferrer"
+      class="btn-movil"
+    >
+      Reservar
+    </a>
+  </nav>
+
+  <!-- ============================================================
+       HERO — viewport completo, fondo negro atmosférico
+  ============================================================ -->
+  <section class="hero" id="inicio" aria-label="Bienvenida a Amélie Bar &amp; Bistró">
+
+    <!-- Elementos decorativos de fondo -->
+    <div class="hero__puntos"  aria-hidden="true"></div>
+    <div class="hero__anillo"  aria-hidden="true"></div>
+
+    <!-- Contenido principal -->
+    <div class="hero__contenido">
+      <div class="logo-tipo hero__logo" role="img" aria-label="Amélie Bar &amp; Bistró">
+        <span class="logo-tipo__nombre">Amélie</span>
+        <span class="logo-tipo__sub">Bar &amp; Bistró</span>
+      </div>
+      <div class="hero__separador" aria-hidden="true"></div>
+      <p class="hero__tagline">"Donde cada plato cuenta una historia."</p>
+      <p class="hero__subtitulo">Bar &amp; Bistró &nbsp;·&nbsp; Punta Carretas, Montevideo</p>
+      <a
+        href="https://wa.me/59895741158"
+        target="_blank" rel="noopener noreferrer"
+        class="hero__cta"
+      >
+        Reservar por WhatsApp
+      </a>
+    </div>
+
+    <!-- Flecha indicadora de scroll -->
+    <div class="scroll-indicador" aria-hidden="true">
+      <span>Descubrí</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="19 12 12 19 5 12"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NOSOTROS — sección clara, dos columnas
+  ============================================================ -->
+  <section class="nosotros seccion" id="nosotros" aria-labelledby="nosotros-titulo">
+    <div class="contenedor nosotros__grid">
+
+      <!-- Columna texto -->
+      <div>
+        <span class="nosotros__etiqueta revelar">Nuestra historia</span>
+        <h2 class="nosotros__titulo revelar revelar-d1" id="nosotros-titulo">
+          Un rincón de Montevideo<br>con alma parisina
+        </h2>
+        <p class="nosotros__texto revelar revelar-d2">
+          Amélie nació como el restaurante del hotel Ibis Styles, pero pronto se convirtió
+          en un lugar propio. Abierto para todo el público, ofrecemos una experiencia
+          gastronómica variada en un ambiente cálido y familiar.
+        </p>
+        <div class="nosotros__premio revelar revelar-d3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          Premio Bernaches — el reconocimiento a la hospitalidad uruguaya.
+        </div>
+        <p class="nosotros__horario revelar revelar-d4">
+          Abierto todos los días &nbsp;·&nbsp; 12:00 a 23:00 hs
+        </p>
+      </div>
+
+      <!-- Columna imagen (reemplazar src con foto real del local) -->
+      <div class="nosotros__foto revelar revelar-d2">
+        <img
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80"
+          alt="Interior de Amélie Bar &amp; Bistró"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MENÚ — carta real del restaurante
+  ============================================================ -->
+  <section class="menu-sec seccion" id="menu" aria-labelledby="menu-titulo">
+    <div class="contenedor">
+
+      <div class="menu-sec__intro">
+        <h2 class="menu-sec__titulo revelar" id="menu-titulo">Una carta para cada momento</h2>
+        <div class="menu-sec__sep revelar revelar-d1"></div>
+      </div>
+
+      <!-- Categorías en 2 columnas (desktop) / 1 columna (mobile) -->
+      <div class="menu-columnas">
+
+        <!-- PARA COMPARTIR -->
+        <div class="menu-cat revelar">
+          <h3 class="menu-cat__titulo">Para Compartir</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Picada Criolla</p>
+              <p class="menu-plato__desc">Chorizo grillado en tiras, provoleta, papas bravas, pan de ajo, chimichurri y mayonesa</p>
+            </div>
+            <span class="menu-plato__precio">$1.190</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Picada Amélie</p>
+              <p class="menu-plato__desc">Milanesas, bastones de queso, noisettes, aros de cebolla, arrolladitos primavera, alioli y salsa de soya</p>
+            </div>
+            <span class="menu-plato__precio">$990</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Papas con cheddar y panceta</p>
+            </div>
+            <span class="menu-plato__precio">$330</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Provoleta al horno</p>
+              <p class="menu-plato__desc">Tomate confitado y rúcula</p>
+            </div>
+            <span class="menu-plato__precio">$330</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Bowl de pollo crispy</p>
+              <p class="menu-plato__desc">En panko y cereal, alioli y salsa barbacoa</p>
+            </div>
+            <span class="menu-plato__precio">$690</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Pizzeta casera con queso</p>
+              <p class="menu-plato__desc">Al horno. Gusto adicional +$100: albahaca, jamón, panceta, cebolla caramelizada, rúcula</p>
+            </div>
+            <span class="menu-plato__precio">$590</span>
+          </div>
+        </div>
+
+        <!-- ENTRADAS -->
+        <div class="menu-cat revelar revelar-d1">
+          <h3 class="menu-cat__titulo">Entradas</h3>
+          <div class="menu-plato menu-plato--destacado">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Trilogía de croquetas</p>
+              <p class="menu-plato__desc">Degustación de croquetas de salmón, jamón crudo, puero y panceta</p>
+            </div>
+            <span class="menu-plato__precio">$390</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Sopa crema de calabaza y jengibre</p>
+              <p class="menu-plato__desc">Con toque sweet chili</p>
+            </div>
+            <span class="menu-plato__precio">$350</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Miniaturas de salmón</p>
+              <p class="menu-plato__desc">Con mix de verdes</p>
+            </div>
+            <span class="menu-plato__precio">$350</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Bastones de muzzarella</p>
+            </div>
+            <span class="menu-plato__precio">$330</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Ensalada César</p>
+              <p class="menu-plato__desc">Pollo grillado, panceta, croutons, lascos de queso, lechuga y aderezo</p>
+            </div>
+            <span class="menu-plato__precio">$490</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Ensalada de la huerta</p>
+              <p class="menu-plato__desc">Tomate, verdes, vegetales asados y arvejas</p>
+            </div>
+            <span class="menu-plato__precio">$420</span>
+          </div>
+        </div>
+
+        <!-- SANDWICHES -->
+        <div class="menu-cat revelar">
+          <h3 class="menu-cat__titulo">Sandwiches</h3>
+          <div class="menu-plato menu-plato--destacado">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Chivito Amélie</p>
+              <p class="menu-plato__desc">Tomo, jamón, queso, panceta, huevo frito, lechuga, tomate y papas</p>
+            </div>
+            <span class="menu-plato__precio">$650</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Hamburguesa Americana</p>
+              <p class="menu-plato__desc">Cheddar, panceta, pepinillos, cebolla caramelizada, huevo, tomate, lechuga y papas</p>
+            </div>
+            <span class="menu-plato__precio">$600</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Hamburguesa Smash</p>
+              <p class="menu-plato__desc">Doble carne, cheddar, panceta, aros de cebolla y noisettes</p>
+            </div>
+            <span class="menu-plato__precio">$550</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Club Sandwich</p>
+              <p class="menu-plato__desc">Pollo, panceta, huevo duro, lechuga, tomate, mayonesa y papas</p>
+            </div>
+            <span class="menu-plato__precio">$590</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Tostón de jamón crudo</p>
+              <p class="menu-plato__desc">Pan casero, jamón crudo, queso crema y rúcula</p>
+            </div>
+            <span class="menu-plato__precio">$290</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Tostado de Jamón y Queso</p>
+            </div>
+            <span class="menu-plato__precio">$320</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Tostado Napolitano</p>
+              <p class="menu-plato__desc">Jamón, queso y tomate, gratinado con queso muzzarella</p>
+            </div>
+            <span class="menu-plato__precio">$390</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Bocata de Salmón</p>
+              <p class="menu-plato__desc">Salmón ahumado en pan de boniato, rúcula y queso crema</p>
+            </div>
+            <span class="menu-plato__precio">$460</span>
+          </div>
+        </div>
+
+        <!-- PRINCIPALES -->
+        <div class="menu-cat revelar revelar-d1">
+          <h3 class="menu-cat__titulo">Principales</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Milanesa Napolitana</p>
+              <p class="menu-plato__desc">Carne de res, jamón, queso, salsa de tomate, arvejas y papas fritas</p>
+            </div>
+            <span class="menu-plato__precio">$690</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Milanesa a caballo</p>
+              <p class="menu-plato__desc">Carne de res, con huevo frito y papas fritas</p>
+            </div>
+            <span class="menu-plato__precio">$650</span>
+          </div>
+          <div class="menu-plato menu-plato--destacado">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Bondiola braseada</p>
+              <p class="menu-plato__desc">Cocción lenta, con puré de boniato zanahoria y jengibre</p>
+            </div>
+            <span class="menu-plato__precio">$590</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Polenta cremosa Amélie</p>
+              <p class="menu-plato__desc">Polenta casera con queso, ají dorado y salsa bolognesa</p>
+            </div>
+            <span class="menu-plato__precio">$450</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Entraña a la plancha</p>
+              <p class="menu-plato__desc">Acompañada de papas bravas y chimichurri casero</p>
+            </div>
+            <span class="menu-plato__precio">$890</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Bife de entrecot al Tannat</p>
+              <p class="menu-plato__desc">Corte de 350gr con papas rústicas, tomate confitado, cebolla colorada y espinacas</p>
+            </div>
+            <span class="menu-plato__precio">$750</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Salmón marinado</p>
+              <p class="menu-plato__desc">En reducción de aceto balsámico con vegetales asados</p>
+            </div>
+            <span class="menu-plato__precio">$890</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Pesca del día grillada</p>
+              <p class="menu-plato__desc">Acompañada de risotto de limón</p>
+            </div>
+            <span class="menu-plato__precio">$750</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Pollo grillado</p>
+              <p class="menu-plato__desc">Con boniatos fritos y salsa de champiñones</p>
+            </div>
+            <span class="menu-plato__precio">$690</span>
+          </div>
+          <p class="menu-cat__nota">Cambio de guarnición: $80 &nbsp;&middot;&nbsp; Porción extra: $180</p>
+        </div>
+
+        <!-- PASTAS -->
+        <div class="menu-cat revelar">
+          <h3 class="menu-cat__titulo">Pastas</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Sorrentinos de Salmón</p>
+            </div>
+            <span class="menu-plato__precio">$520</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Sorrentinos Capresse</p>
+            </div>
+            <span class="menu-plato__precio">$520</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Gnocchi de papa</p>
+            </div>
+            <span class="menu-plato__precio">$490</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Spaghettis al wok</p>
+            </div>
+            <span class="menu-plato__precio">$450</span>
+          </div>
+          <p class="menu-cat__nota">Salsas disponibles: Caruso &middot; Fileto &middot; Bolognesa &middot; Cuatro quesos</p>
+        </div>
+
+        <!-- POSTRES -->
+        <div class="menu-cat revelar revelar-d1">
+          <h3 class="menu-cat__titulo">Postres</h3>
+          <div class="menu-plato menu-plato--destacado">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Brownie tibio de chocolate</p>
+              <p class="menu-plato__desc">Con helado de vainilla</p>
+            </div>
+            <span class="menu-plato__precio">$320</span>
+          </div>
+          <div class="menu-plato menu-plato--destacado">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Cheesecake de Martín Fierro</p>
+              <p class="menu-plato__desc">Cheesecake de queso y dulce de membrillo en base de galleta con coulis de membrillo</p>
+            </div>
+            <span class="menu-plato__precio">$320</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Flan casero</p>
+              <p class="menu-plato__desc">Con dulce de leche y caramelo</p>
+            </div>
+            <span class="menu-plato__precio">$270</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Crumble de manzana</p>
+              <p class="menu-plato__desc">Tibio con helado de vainilla</p>
+            </div>
+            <span class="menu-plato__precio">$320</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Affogato</p>
+              <p class="menu-plato__desc">Helado de crema con café expreso</p>
+            </div>
+            <span class="menu-plato__precio">$290</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Torta del día</p>
+            </div>
+            <span class="menu-plato__precio">$320</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Copa de helado</p>
+            </div>
+            <span class="menu-plato__precio">$240</span>
+          </div>
+        </div>
+
+        <!-- BEBIDAS -->
+        <div class="menu-cat revelar">
+          <h3 class="menu-cat__titulo">Bebidas</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Agua Mineral 500ml</p></div>
+            <span class="menu-plato__precio">$150</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Refrescos 350ml</p></div>
+            <span class="menu-plato__precio">$150</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Agua Saborizada 500ml</p></div>
+            <span class="menu-plato__precio">$150</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Jarra de Limonada</p></div>
+            <span class="menu-plato__precio">$180</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Jarra Multifruta</p></div>
+            <span class="menu-plato__precio">$180</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Jarra de Naranjada</p></div>
+            <span class="menu-plato__precio">$180</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Cerveza 330ml</p></div>
+            <span class="menu-plato__precio">$250</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Cerveza 730ml</p></div>
+            <span class="menu-plato__precio">$370</span>
+          </div>
+        </div>
+
+        <!-- CAFETERÍA -->
+        <div class="menu-cat revelar revelar-d1">
+          <h3 class="menu-cat__titulo">Cafetería</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Espresso</p>
+              <p class="menu-plato__desc">Doble: $180</p>
+            </div>
+            <span class="menu-plato__precio">$150</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Cortado</p>
+              <p class="menu-plato__desc">Doble: $180</p>
+            </div>
+            <span class="menu-plato__precio">$150</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Cappuccino</p></div>
+            <span class="menu-plato__precio">$200</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Chocolate Caliente</p></div>
+            <span class="menu-plato__precio">$180</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Variedades de Té</p></div>
+            <span class="menu-plato__precio">$180</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Medialuna de manteca</p></div>
+            <span class="menu-plato__precio">$80</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Medialuna rellena</p></div>
+            <span class="menu-plato__precio">$120</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info"><p class="menu-plato__nombre">Bocados dulces</p></div>
+            <span class="menu-plato__precio">$80</span>
+          </div>
+        </div>
+
+        <!-- MENÚ DEL DÍA -->
+        <div class="menu-cat revelar">
+          <h3 class="menu-cat__titulo">Menú del Día</h3>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Menú Ejecutivo</p>
+              <p class="menu-plato__desc">Entrada, plato principal, panera, agua o refresco &middot; Lunes a Viernes de 12:00 a 15:30 hs</p>
+            </div>
+            <span class="menu-plato__precio">$590</span>
+          </div>
+          <div class="menu-plato">
+            <div class="menu-plato__info">
+              <p class="menu-plato__nombre">Sugerencia del Chef</p>
+              <p class="menu-plato__desc">Entrada, plato principal, panera, agua o refresco &middot; Sábado a Domingo de 12:00 a 15:30 hs</p>
+            </div>
+            <span class="menu-plato__precio">$690</span>
+          </div>
+        </div>
+
+      </div><!-- /menu-columnas -->
+
+      <!-- SECCIÓN ESPECIAL: Té y Brunch para Dos -->
+      <div class="menu-especial revelar">
+        <span class="menu-especial__eyebrow">Experiencia completa</span>
+        <h3 class="menu-especial__titulo">Té y Brunch para Dos</h3>
+        <span class="menu-especial__horario">Lunes a Domingo</span>
+        <div class="menu-especial__grid">
+
+          <div class="menu-especial-item">
+            <p class="menu-especial-item__nombre">Té Completo para Dos</p>
+            <span class="menu-especial-item__cuando">16:00 a 19:30 hs</span>
+            <p class="menu-especial-item__desc">Bebidas calientes, jugos, medialunas, scones rellenos de bondíola y rúcula, tostadas, alfajores de maizena, brownies, lemonies, red velvet cookies, sandwich tostado, porción de torta del día</p>
+            <span class="menu-especial-item__precio">$990</span>
+          </div>
+
+          <div class="menu-especial-item">
+            <p class="menu-especial-item__nombre">Brunch para Dos</p>
+            <span class="menu-especial-item__cuando">10:00 a 16:00 hs</span>
+            <p class="menu-especial-item__desc">Bebidas calientes, jugos, huevos revueltos, medialunas, bastones de bondíola y rúcula o capresse, bocados dulces, sandwich tostado, porción de torta del día</p>
+            <span class="menu-especial-item__precio">$1.250</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Nota de precios al pie -->
+      <p class="menu-nota-precios">Precios en pesos uruguayos. Sujetos a cambios sin previo aviso.</p>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERIENCIAS — sección clara, 2 tarjetas premium
+  ============================================================ -->
+  <section class="experiencias seccion" id="experiencias" aria-labelledby="exp-titulo">
+    <div class="contenedor experiencias__inner">
+
+      <div class="experiencias__cabecera">
+        <span class="experiencias__etiqueta revelar">Nuestras propuestas</span>
+        <h2 class="experiencias__titulo revelar revelar-d1" id="exp-titulo">Viví Amélie</h2>
+      </div>
+
+      <div class="experiencias__grid">
+
+        <!-- Tarjeta 1: Almuerzo / Cena Gourmet -->
+        <article class="exp-card revelar">
+          <span class="exp-card__icono">
+            <!-- Ícono: campana de servicio / gourmet -->
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14c0-4.97 4.03-9 9-9s9 4.03 9 9"/><line x1="2" y1="14" x2="22" y2="14"/><line x1="12" y1="5" x2="12" y2="3"/><line x1="12" y1="14" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
+          </span>
+          <h3 class="exp-card__titulo">Almuerzo o Cena Gourmet para 2</h3>
+          <p class="exp-card__desc">
+            Entrada · Principal · Postre · 2 bebidas sin alcohol o 1 botella de vino · Café o té.
+            Los platos se eligen de la carta.
+          </p>
+          <span class="exp-card__detalle">Todos los días · 20:00 a 23:30 hs</span>
+          <a
+            href="https://wa.me/59895741158"
+            target="_blank" rel="noopener noreferrer"
+            class="exp-card__cta"
+          >
+            Reservar
+          </a>
+        </article>
+
+        <!-- Tarjeta 2: Té Completo -->
+        <article class="exp-card revelar revelar-d2">
+          <span class="exp-card__icono">
+            <!-- Ícono: taza de té -->
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h2a3 3 0 010 6h-2"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="1" y1="22" x2="23" y2="22"/></svg>
+          </span>
+          <h3 class="exp-card__titulo">Té Completo para 2</h3>
+          <p class="exp-card__desc">
+            Una tarde de pausa con sabor francés. Selección de tés, scones, sándwiches y dulces.
+          </p>
+          <span class="exp-card__detalle">Lunes a Domingo · 16:00 a 19:00 hs</span>
+          <a
+            href="https://wa.me/59895741158"
+            target="_blank" rel="noopener noreferrer"
+            class="exp-card__cta"
+          >
+            Reservar
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALERÍA — sección oscura, masonry CSS columns
+       Reemplazar con fotos reales de @ameliebarybistro
+  ============================================================ -->
+  <section class="galeria seccion" id="galeria" aria-labelledby="galeria-titulo">
+    <div class="contenedor galeria__inner">
+
+      <div class="galeria__cabecera">
+        <span class="galeria__etiqueta revelar">Instagram · @ameliebarybistro</span>
+        <h2 class="galeria__titulo revelar revelar-d1" id="galeria-titulo">Momentos en Amélie</h2>
+      </div>
+
+      <!-- Reemplazar src de cada imagen con fotos reales de @ameliebarybistro -->
+      <div class="galeria__grid">
+        <div class="galeria__item revelar">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Gastronomía Amélie" loading="lazy" />
+        </div>
+        <div class="galeria__item revelar revelar-d1">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80" alt="Bar Amélie" loading="lazy" />
+        </div>
+        <div class="galeria__item revelar revelar-d2">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Interior Amélie" loading="lazy" />
+        </div>
+        <div class="galeria__item revelar revelar-d3">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Café Amélie" loading="lazy" />
+        </div>
+        <div class="galeria__item revelar revelar-d4">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Platos Amélie" loading="lazy" />
+        </div>
+        <div class="galeria__item revelar revelar-d5">
+          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" alt="Experiencia Amélie" loading="lazy" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESERVAS / CTA — fondo dorado
+  ============================================================ -->
+  <section class="reservas" id="reservas" aria-labelledby="reservas-titulo">
+    <h2 class="reservas__titulo revelar" id="reservas-titulo">
+      ¿Listo para vivir la experiencia?
+    </h2>
+    <p class="reservas__subtexto revelar revelar-d1">
+      Reservas por WhatsApp o teléfono. También aceptamos visitas sin reserva.
+    </p>
+    <div class="reservas__botones revelar revelar-d2">
+      <a
+        href="https://wa.me/59895741158"
+        target="_blank" rel="noopener noreferrer"
+        class="btn-oscuro"
+      >
+        Reservar por WhatsApp
+      </a>
+      <a href="tel:+59827131592" class="btn-borde">
+        Llamar: 2713 1592
+      </a>
+    </div>
+    <p class="reservas__direccion revelar revelar-d3">
+      21 de Septiembre 2783, Punta Carretas, Montevideo
+    </p>
+  </section>
+
+  <!-- ============================================================
+       FOOTER — oscuro, 3 columnas
+  ============================================================ -->
+  <footer class="footer" aria-label="Pie de página">
+    <div class="footer__grid">
+
+      <!-- Col 1: Logo + tagline + Instagram -->
+      <div class="footer__col">
+        <div class="footer__logo">
+          <div class="logo-tipo">
+          <span class="logo-tipo__nombre">Amélie</span>
+          <span class="logo-tipo__sub">Bar &amp; Bistró</span>
+        </div>
+        </div>
+        <p class="footer__tagline">Bienvenidos a Amélie.</p>
+        <a
+          href="https://www.instagram.com/ameliebarybistro/"
+          target="_blank" rel="noopener noreferrer"
+          class="footer__ig"
+          aria-label="Instagram de Amélie Bar &amp; Bistró"
+        >
+          <!-- Ícono Instagram SVG inline -->
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+          @ameliebarybistro
+        </a>
+      </div>
+
+      <!-- Col 2: Contacto -->
+      <div class="footer__col">
+        <h3 class="footer__col-titulo">Contacto</h3>
+        <address>
+          21 de Septiembre 2783<br>
+          Punta Carretas, Montevideo, Uruguay<br>
+          <br>
+          <a href="tel:+59827131592">2713 1592</a>
+          &nbsp;/&nbsp;
+          <a href="tel:+59895741158">095 741 158</a><br>
+          <br>
+          <a href="mailto:ameliebarybistro@gmail.com">ameliebarybistro@gmail.com</a>
+        </address>
+      </div>
+
+      <!-- Col 3: Horarios -->
+      <div class="footer__col">
+        <h3 class="footer__col-titulo">Horarios</h3>
+        <p>
+          Todos los días<br>
+          12:00 – 23:00 hs<br>
+          <br>
+          Té de la tarde<br>
+          16:00 – 19:00 hs
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Línea separadora dorada -->
+    <div class="footer__divisor"></div>
+
+    <!-- Barra inferior -->
+    <div class="footer__barra">
+      <span class="footer__copyright">
+        © 2025 Amélie Bar &amp; Bistró · Todos los derechos reservados
+      </span>
+      <span class="footer__credito">
+        Diseñado por JENG Web Development · jengsoftware@gmail.com
+      </span>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       BOTÓN FLOTANTE WHATSAPP — visible solo en móvil, aparece a los 2s
+  ============================================================ -->
+  <a
+    href="https://wa.me/59895741158"
+    target="_blank" rel="noopener noreferrer"
+    class="wa-flotante"
+    aria-label="Reservar por WhatsApp"
+  >
+    <!-- Ícono oficial WhatsApp SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ============================================================
+       JAVASCRIPT — vanilla, sin dependencias externas
+  ============================================================ -->
+  <script>
+    /* ── Header: transparente → sólido al hacer scroll ── */
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── Menú hamburguesa móvil ── */
+    const hamburger = document.getElementById('hamburger');
+    const navMovil   = document.getElementById('navMovil');
+    const enlacesNav = navMovil.querySelectorAll('a');
+
+    function abrirMenu() {
+      hamburger.classList.add('abierto');
+      navMovil.classList.add('activo');
+      hamburger.setAttribute('aria-expanded', 'true');
+      navMovil.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarMenu() {
+      hamburger.classList.remove('abierto');
+      navMovil.classList.remove('activo');
+      hamburger.setAttribute('aria-expanded', 'false');
+      navMovil.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.contains('abierto') ? cerrarMenu() : abrirMenu();
+    });
+
+    /* Cerrar al tocar un enlace del menú */
+    enlacesNav.forEach(function (enlace) {
+      enlace.addEventListener('click', cerrarMenu);
+    });
+
+    /* Cerrar al tocar fuera del overlay */
+    document.addEventListener('click', function (e) {
+      if (
+        navMovil.classList.contains('activo') &&
+        !navMovil.contains(e.target) &&
+        !hamburger.contains(e.target)
+      ) {
+        cerrarMenu();
+      }
+    });
+
+    /* ── Intersection Observer: animaciones de reveal al scroll ── */
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('visible');
+          observador.unobserve(entrada.target); /* se dispara una sola vez */
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.revelar').forEach(function (el) {
+      observador.observe(el);
+    });
+  </script>
+
+</body>
+</html>
