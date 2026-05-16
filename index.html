@@ -592,6 +592,26 @@
     ================================================ */
     .menu-sec { background: var(--negro); color: var(--texto-oscuro); }
     .menu-sec__intro { text-align: center; margin-bottom: 3.5rem; }
+    .menu-bbva-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      background: var(--oro);
+      color: #1a1a1a;
+      padding: 0.75rem 1.5rem;
+      border-radius: 3px;
+      margin-bottom: 2.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .menu-bbva-banner__logo {
+      height: 16px;
+      width: auto;
+      filter: brightness(0);
+    }
     .menu-sec__titulo {
       font-family: var(--serif);
       font-weight: 600;
@@ -1415,8 +1435,7 @@
       <img src="amelie_logo_dorado_transparente.png" alt="Amélie Bar &amp; Bistró" class="hero__logo-img" />
       <div class="hero__separador" aria-hidden="true"></div>
       <p class="hero__tagline">"Donde cada plato cuenta una historia."</p>
-      <p class="hero__servicios">Desayuno · Brunch · Almuerzo · Merienda · Cena · Todos los días</p>
-      <p class="hero__subtitulo">Bar &amp; Bistró &nbsp;·&nbsp; Punta Carretas, Montevideo</p>
+      <p class="hero__subtitulo">Punta Carretas, Montevideo</p>
       <a
         href="https://wa.me/59895741158"
         target="_blank" rel="noopener noreferrer"
@@ -1424,10 +1443,6 @@
       >
         Reservar por WhatsApp
       </a>
-      <p class="hero__bbva">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-        Hasta 30% off con tarjetas BBVA
-      </p>
       <p class="hero__bernaches">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
         Premio Bernaches · Hospitalidad Uruguaya
@@ -1492,6 +1507,12 @@
       <div class="menu-sec__intro">
         <h2 class="menu-sec__titulo revelar" id="menu-titulo">Una carta para cada momento</h2>
         <div class="menu-sec__sep revelar revelar-d1"></div>
+      </div>
+
+      <!-- Banner BBVA -->
+      <div class="menu-bbva-banner">
+        <img src="logobbva.png" alt="BBVA" class="menu-bbva-banner__logo" />
+        Hasta 30% off con tarjetas BBVA
       </div>
 
       <!-- Categorías en 2 columnas (desktop) / 1 columna (mobile) -->
