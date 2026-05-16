@@ -1168,6 +1168,37 @@
     }
     .footer__ig:hover { opacity: 0.65; }
     .footer__ig svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .footer__bbva {
+      margin-top: 1.8rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.18);
+    }
+    .footer__bbva-logo {
+      width: 72px;
+      opacity: 0.85;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .footer__bbva-lista {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer__bbva-lista li {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.52);
+      line-height: 1.4;
+    }
+    .footer__bbva-vigencia {
+      font-size: 0.72rem;
+      color: rgba(245, 240, 232, 0.35);
+      font-style: italic;
+      margin: 0;
+    }
     .footer__col-titulo {
       font-size: 0.68rem;
       letter-spacing: 0.22em;
@@ -1393,7 +1424,7 @@
       </a>
       <p class="hero__bbva">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-        20% de descuento con tarjetas BBVA
+        Hasta 30% off con tarjetas BBVA
       </p>
       <p class="hero__bernaches">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
@@ -2109,6 +2140,16 @@
           </svg>
           @ameliebarybistro
         </a>
+        <!-- BBVA Beneficio -->
+        <div class="footer__bbva">
+          <img src="logobbva.png" alt="BBVA" class="footer__bbva-logo" />
+          <ul class="footer__bbva-lista">
+            <li>20% Off · Tarjetas de Débito</li>
+            <li>20% Off · Crédito Internacional, Oro, Pymes y Corporativas</li>
+            <li>30% Off · Crédito Platinum, Black e Infinite</li>
+          </ul>
+          <p class="footer__bbva-vigencia">Vigencia: 30 de Abril 2027</p>
+        </div>
       </div>
 
       <!-- Col 2: Contacto -->
