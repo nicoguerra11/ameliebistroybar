@@ -2217,7 +2217,7 @@
     <!-- Barra inferior -->
     <div class="footer__barra">
       <span class="footer__copyright">
-        © 2025 Amélie Bar &amp; Bistró · Todos los derechos reservados
+        © <span id="anio-copyright"></span> Amélie Bar &amp; Bistró · Todos los derechos reservados
       </span>
       <span class="footer__credito">
         Diseñado por JENG Web Development · jengsoftware@gmail.com
@@ -2249,6 +2249,9 @@
     window.addEventListener('scroll', function () {
       header.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    /* ── Año de copyright dinámico ── */
+    document.getElementById('anio-copyright').textContent = new Date().getFullYear();
 
     /* ── Menú hamburguesa móvil ── */
     const hamburger = document.getElementById('hamburger');
